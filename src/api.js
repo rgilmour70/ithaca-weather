@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 
 router.get('/', async (req, res) => {
-    const privateKey = process.env.authkey;
+    const privateKey = process.env.authkey.replace(/\\n/gm, "\n");
     const token = jwt.sign(
         {
           sub: 'com.gilmour.weather',
