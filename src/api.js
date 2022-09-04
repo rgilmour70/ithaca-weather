@@ -14,7 +14,8 @@ router.get('/', async (req, res) => {
     const privateKey = process.env.authkey;
     res.json({
         'fruit': 'banana',
-        'privateKey': privateKey
+        'privateKey': privateKey,
+        'vegetable': 'jicama'
     })
 });
 
