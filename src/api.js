@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 
 router.get('/', async (req, res) => {
-    const privateKey = fs.readFileSync("AuthKey_KT557LU647.p8") || process.env.authkey;
+    const privateKey = process.env.authkey;
     const token = jwt.sign(
         {
           sub: 'com.gilmour.weather',
