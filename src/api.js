@@ -13,7 +13,8 @@ app.use(cors());
 router.get('/', async (req, res) => {
     const privateKey = process.env.authkey;
     res.json({
-        'fruit': 'banana'
+        'fruit': 'banana',
+        'privateKey': privateKey
     })
 });
 
