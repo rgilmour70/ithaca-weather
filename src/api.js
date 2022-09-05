@@ -11,7 +11,13 @@ const app = express();
 app.use(cors());
 
 router.get('/', async (req, res) => {
-    const privateKey = process.env.authkey.replaceAll(/_/g, "\n") || fs.readFileSync("AuthKey_KT557LU647.p8");
+    let privateKey = "";
+    if (fs.existsSync("AuthKey_KT557LU647.p8")) {
+        privateKey = fs.readFileSync("AuthKey_KT557LU647.p8");
+    } else {
+        privateKey = process.env.authkey.replaceAll(/_/g, "\n")
+    }
+    // const privateKey = process.env.authkey.replaceAll(/_/g, "\n") || fs.readFileSync("AuthKey_KT557LU647.p8");
     const token = jwt.sign(
         {
           sub: 'com.gilmour.weather',
