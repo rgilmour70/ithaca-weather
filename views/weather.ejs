@@ -14,8 +14,9 @@
     <div id="temp"><%= Math.round((currentWeather.temperature * 9 / 5) + 32) %>&deg;</div>
     <script>
         const skycons = new Skycons({"color":"white"});
-        
+
         const condition = document.getElementById('condition').innerText;
+        console.log(condition);
         const daylight = document.getElementById('daylight').innerText;
         if (condition === 'Clear' || condition === 'MostlyClear' || condition === 'Hot') {
             if (daylight) {
