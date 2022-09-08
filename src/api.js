@@ -5,8 +5,18 @@ const fs = require('fs');
 const axios = require('axios');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+// const path = require('path');
 
 const app = express();
+
+// app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static('public'));
+
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').__express);
+
+// make sure views work from anywhere
+// app.set('views', path.join(__dirname, '/views'));
 
 app.use(cors());
 
@@ -17,7 +27,7 @@ router.get('/', async (req, res) => {
     } else {
         privateKey = process.env.authkey.replaceAll(/_/g, "\n")
     }
-    // const privateKey = process.env.authkey.replaceAll(/_/g, "\n") || fs.readFileSync("AuthKey_KT557LU647.p8");
+
     const token = jwt.sign(
         {
           sub: 'com.gilmour.weather',
@@ -43,18 +53,8 @@ router.get('/', async (req, res) => {
     
     const { data: weatherData } = await axios.get(url, config);
 
-    res.json(weatherData);
-    // res.json({
-    //     'fruit': 'banana',
-    //     'privateKey': privateKey,
-    //     'vegetable': 'jicama'
-    // })
-});
-
-router.get('/mango', (req, res) => {
-    res.json({
-        'fruit': 'mango'
-    })
+    // res.json(weatherData);
+    res.render('weather', { ...weatherData });
 });
 
 app.use('/.netlify/functions/api', router);

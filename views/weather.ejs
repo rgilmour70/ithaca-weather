@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ithaca Weather</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <script src="/public/skycons.js"></script>
+</head>
+<body>
+    <div id="condition"><%= currentWeather.conditionCode %></div>
+    <div id="daylight"><%= currentWeather.daylight %></div>
+    <canvas id="icon" width="128" height="128"></canvas>
+    <div id="temp"><%= Math.round((currentWeather.temperature * 9 / 5) + 32) %>&deg;</div>
+    <script>
+        const skycons = new Skycons({"color":"white"});
+        
+        const condition = document.getElementById('condition').innerText;
+        const daylight = document.getElementById('daylight').innerText;
+        if (condition === 'Clear' || condition === 'MostlyClear' || condition === 'Hot') {
+            if (daylight) {
+                skycons.add('icon', Skycons.CLEAR_DAY);
+            } else {
+                skycons.add('icon', Skycons.CLEAR_NIGHT);
+            }
+        } else if (condition === 'PartlyCloudy') {
+            if (daylight) {
+                skycons.add('icon', Skycons.PARTLY_CLOUDY_DAY);
+            } else {
+                skycons.add('icon', Skycons.PARTLY_CLOUDY_NIGHT);
+            }
+        } else if (condition === 'MostlyCloudy' || condition === 'Cloudy') {
+            skycons.add('icon', Skycons.CLOUDY);
+        } else if (condition === 'ScatteredThunderstorms' || condition === 'Drizzle' || condition === 'HeavyRain' || condition === 'Rain' || condition === 'Showers' || condition === 'MixedRainfall' || condition === 'ScatteredShowers' || condition === 'IsolatedThunderstorms' || condition === 'SevereThunderstorm' || condition === 'Thunderstorms' || condition === 'Thunderstorm') {
+            skycons.add('icon', Skycons.RAIN);
+        } else if (condition === 'MixedRainAndSleet' || condition === 'Sleet' || condition === 'FreezingDrizzle' || condition === 'FreezingRain') {
+            skycons.add('icon', Skycons.SLEET);
+        } else if (condition === 'Flurries' || condition === 'HeavySnow' || condition === 'MixedRainAndSnow' || condition === 'MixedSnowAndSleet' || condition === 'ScatteredSnowShowers' || condition === 'Snow' || condition === 'SnowShowers' || condition === 'Blizzard' || condition === 'BlowingSnow') {
+            skycons.add('icon', Skycons.SNOW);
+        } else if (condition === 'Fog' || condition === 'Haze' || condition === 'Smoke') {
+            skycons.add('icon', Skycons.FOG);
+        } else if (condition === 'Breezy' || condition === 'Windy') {
+            skycons.add('icon', Skycons.WIND);
+        } else {
+            if (daylight) {
+                skycons.add('icon', Skycons.PARTLY_CLOUDY_DAY);
+            } else {
+                skycons.add('icon', Skycons.PARTLY_CLOUDY_NIGHT);
+            }
+        }
+        skycons.play();
+    </script>
+</body>
+</html>

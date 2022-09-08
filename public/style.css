@@ -1,0 +1,12 @@
+body {
+    color: white;
+    background-color: #ff671d;
+    font-family: "Helvetica Neue", sans-serif;
+    margin: 2em;
+}
+#condition, #daylight {
+    display: none;
+}
+#temp {
+    font-size: 150px;
+}
