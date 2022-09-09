@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
     const { data: weatherData } = await axios.get(url, config);
 
     // res.json(weatherData);
-    res.render('weather', { ...weatherData });
+    res.render('test', { ...weatherData });
 });
 
 app.use('/.netlify/functions/api', router);
