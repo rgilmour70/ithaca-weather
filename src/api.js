@@ -6,6 +6,7 @@ const axios = require('axios');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const ejs = require('ejs');
 
 const app = express();
 
@@ -14,9 +15,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
-
-// make sure views work from anywhere
-// app.set('views', path.join(__dirname, '/views'));
 
 app.use(cors());
 
@@ -54,7 +52,7 @@ router.get('/', async (req, res) => {
     const { data: weatherData } = await axios.get(url, config);
 
     // res.json(weatherData);
-    res.render('test', { ...weatherData });
+    res.render('weather', { ...weatherData });
 });
 
 app.use('/.netlify/functions/api', router);
